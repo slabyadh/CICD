@@ -15,3 +15,5 @@ jobs:
           echo "VAR depuis workflow: ${{ env.VAR_FROM_WORKFLOW }}"
           echo "Variable de projet: ${{ vars.VAR_PROJECT }}"
           echo "Secret de projet: ${{ secrets.SECRET_PROJECT }}"
+          echo "Branche name: ${{ github.ref_name }}"
+
