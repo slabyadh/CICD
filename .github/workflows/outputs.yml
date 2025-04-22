@@ -1,0 +1,44 @@
+name: CICD
+on:
+  push:
+    branches:
+      - main
+      - dev
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    outputs:
+      test-result: "test success"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm run test:ci
+  test-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "test e2e"
+      - run: echo "confirmation=Je suis un test e2e" >> $GITHUB_OUTPUT
+        id: test-e2e
+    outputs:
+      test-result-e2e: ${{ steps.test-e2e.outputs.confirmation }}
+
+  deploy:
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to DEVELOPMENT
+        if: github.ref == 'refs/heads/dev'
+        run: echo " Deploying to DEVELOPMENT environment "
+
+      - name: Deploy to PRODUCTION
+        if: github.ref == 'refs/heads/main'
+        run: echo " Deploying to PRODUCTION environment "
+      - name: Rapport test-expressions
+        run: |
+          echo "test-result output: ${{ needs.tests.outputs.test-result }}"
