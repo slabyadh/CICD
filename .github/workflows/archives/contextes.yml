@@ -9,7 +9,7 @@ jobs:
   test-contexts:
     runs-on: ubuntu-latest
     steps:
-      - name: "Les contextes  $env.NAME_STEP"
+      - name: "Les contextes  ${{ env.NAME_STEPn }}"
         run: |
           echo "VAR depuis workflow: $VAR_FROM_WORKFLOW"
           echo "VAR depuis workflow: ${{ env.VAR_FROM_WORKFLOW }}"

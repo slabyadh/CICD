@@ -1,0 +1,9 @@
+name: Expressions et conditions
+on: push
+
+jobs:
+  test-expressions:
+    runs-on: ubuntu-latest
+    steps:
+        - run: echo main = top ? ${{ 'main' == 'top'}}
+        - run: echo la branche actuelle contient elle main ? ${{ contains(github.ref, 'main') }}
