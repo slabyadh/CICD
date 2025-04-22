@@ -9,9 +9,14 @@ jobs:
         - run: echo la branche actuelle contient elle main ? ${{ contains(github.ref, 'main') }}
         - run: exit 1
         - run: echo STEP1
-        - if: always() # toujours vrai
+        - if: always()
           run: echo STEP2
         - run: echo STEP3
           if: failure()
         - run: echo STEP4
           if: success()
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - run: echo "deploy en prod"
