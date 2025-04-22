@@ -24,8 +24,8 @@ jobs:
     steps:
       - name: Deploy to DEVELOPMENT
         if: github.ref == 'refs/heads/dev'
-        run: " Deploying to DEVELOPMENT environment "
+        run: echo " Deploying to DEVELOPMENT environment "
 
       - name: Deploy to PRODUCTION
         if: github.ref == 'refs/heads/main'
-        run: " Deploying to PRODUCTION environment "
+        run: echo " Deploying to PRODUCTION environment "
