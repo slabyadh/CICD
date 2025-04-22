@@ -1,0 +1,17 @@
+name: contextes tests
+on: push
+
+env:
+  VAR_FROM_WORKFLOW: "Hello from workflow"
+  NAME_STEP: "fadit"
+
+jobs:
+  test-variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Les contextes  ${{ env.NAME_STEP }}"
+        run: |
+          echo "VAR depuis workflow: $VAR_FROM_WORKFLOW"
+          echo "VAR depuis workflow: ${{ env.VAR_FROM_WORKFLOW }}"
+          echo "Variable de projet: ${{ vars.VAR_PROJECT }}"
+          echo "Secret de projet: ${{ secrets.SECRET_PROJECT }}"
