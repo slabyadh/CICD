@@ -1,0 +1,31 @@
+name: CICD
+on:
+  push:
+    branches:
+      - main
+      - dev
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm run test:ci
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - name: Deploy to DEVELOPMENT
+        if: github.ref == 'refs/heads/dev'
+        run: " Deploying to DEVELOPMENT environment "
+
+      - name: Deploy to PRODUCTION
+        if: github.ref == 'refs/heads/main'
+        run: " Deploying to PRODUCTION environment "
