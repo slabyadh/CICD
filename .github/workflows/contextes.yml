@@ -6,7 +6,7 @@ env:
   NAME_STEP: "fadit"
 
 jobs:
-  test-variables:
+  test-contexts:
     runs-on: ubuntu-latest
     steps:
       - name: "Les contextes  ${{ env.NAME_STEP }}"
