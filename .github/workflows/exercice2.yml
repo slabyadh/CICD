@@ -28,5 +28,5 @@ jobs:
     - name: "Récupérer à nouveau le dépôt"
       uses: actions/checkout@v4
     - name: "Lister les fichiers pour voir si le répertoire et le fichier sont toujours là"
-      run: ls -l Exercice2
+      run: ls -l
     - run: echo "file vérifié"
