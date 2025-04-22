@@ -1,0 +1,32 @@
+name: "Exercice 2"
+
+on: push
+
+jobs: 
+  create-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Vérifier l'utilisateur connecté sur le runner"
+        run: whoami
+
+      - name: "Récupérer le dépôt"
+        uses: actions/checkout@v4
+
+      - name: "Créer un répertoire dans le dépôt"
+        run: mkdir -p Exercice2
+
+      - name: "Ajouter un fichier texte dans ce répertoire"
+        run: echo "Ceci est un fichier texte" > Exercice2/fichier.txt
+
+      - name: "Lister les fichiers à la racine et dans le répertoire créé"
+        run: ls -l Exercice2
+      - run: "file créé"
+
+  verify-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Récupérer à nouveau le dépôt"
+      uses: actions/checkout@v4
+    - name: "Lister les fichiers pour voir si le répertoire et le fichier sont toujours là"
+      run: ls -l Exercice2
+    - run: "file vérifié"

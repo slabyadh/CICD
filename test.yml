@@ -1,0 +1,32 @@
+#Informations sur le projet
+name: "CICD"
+version: "1.0.0"
+description: |
+  CICD pipeline for the project
+  This pipeline builds, tests, and deploys the project to production.
+  It includes stages for building, testing, and deploying the application.
+
+#Dépendances
+dependencies:
+  express: "^4.17.1"
+  mongoose: "^5.10.9"
+  dotenv: "^8.2.0"
+
+#Configuration de l'environnement
+env:
+  NODE_ENV: "development"
+  PORT: 3000
+
+#Scripts de démarrage
+scripts:
+  start: "node index.js"
+
+#Paramètres
+parametres:
+  performance: 85
+  database:
+    url: "mongodb://localhost:27017/mydb"
+  congiguration:
+    - "test"
+    - "production"
+    - "staging"
