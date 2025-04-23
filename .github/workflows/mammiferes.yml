@@ -5,26 +5,15 @@ on:
     branches:
       - main
 
+    paths:
+      - 'zoo/mammiferes/**'
+
 jobs:
-  soins-mammiferes:
-    name: Soins des mammifères
+  soins:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Check if changes affect mammals
-        id: check_changes
-        uses: dorny/paths-filter@v2
-        with:
-          filters: |
-            mammiferes:
-              - 'mammiferes/**'
-
-      - name: Process mammal changes
-        if: steps.check_changes.outputs.mammiferes == 'true'
+      - name: Afficher les informations du commit
         run: |
-          echo "Message du commit: ${{ github.event.head_commit.message }}"
-          echo "Type d'événement: ${{ github.event_name }}"
-          echo "Auteur: ${{ github.actor }}"
+          echo "Message : ${{ github.event.head_commit.message }}"
+          echo "Type d'événement : ${{ github.event_name }}"
+          echo "Auteur : ${{ github.actor }}"
