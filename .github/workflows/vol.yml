@@ -18,11 +18,12 @@ jobs:
   policier-video:
     name: Policier vidéosurveillance
     runs-on: ubuntu-latest
+    steps:
+      - name: Récupération de la séquence vidéo
+        id: recup-video
+        run: echo "resultat=Séquence vidéo récupérée" >> $GITHUB_OUTPUT
     outputs:
       video: ${{ steps.recup-video.outputs.resultat }}
-    steps:
-      - id: recup-video
-        run: echo "resultat=Séquence vidéo récupérée" >> $GITHUB_OUTPUT
 
 
   detective:
@@ -49,7 +50,7 @@ jobs:
       - id: final
         name: Rapport final
         run: |
-          echo "conclusion=${{ env.ANALYSE_EMPREINTE }} et ${{ env.ANALYSE_VIDEO }}, suspect identifié" >> $GITHUB_OUTPUT
+          echo "conclusion=${ env.ANALYSE_EMPREINTE } et ${ env.ANALYSE_VIDEO }, suspect identifié" >> $GITHUB_OUTPUT
           echo "lieu_arrestation=Lieu d'arrestation : 123 Rue du Crime" >> $GITHUB_OUTPUT
           echo "autorisation_arrestation=true" >> $GITHUB_OUTPUT
           echo "Rapport final généré."
