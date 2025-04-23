@@ -11,6 +11,7 @@
     "test:ci": "vitest run"
   },
   "dependencies": {
+    "cicd": "file:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
