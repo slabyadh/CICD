@@ -1,6 +1,9 @@
 name: Soins des mammifères
 
-on: push
+on: 
+  push:
+    branches:
+      - main
 
 jobs:
   soins-mammiferes:
