@@ -31,7 +31,7 @@ jobs:
     needs: [policier-scene, policier-video]
     outputs:
       rapport: ${{ steps.final.outputs.consclusion }}
-      lieu-arrestation: ${{ steps.final.outputs.lieu-arrestation }}
+      lieu-arrestation: ${{ steps.final.outputs.lieu_arrestation }}
       autorisation_arrestation: ${{ steps.final.outputs.autorisation_arrestation }}
     steps:
       - name: Récupération des indices
@@ -49,7 +49,7 @@ jobs:
       - id: final
         name: Rapport final
         run: |
-          echo "conclusion= ${{ env.ANALYSE_EMPREINTE }} et ${{ env.ANALYSE_VIDEO }}, suspect identifié" >> $GITHUB_OUTPUT
+          echo "conclusion=${{ env.ANALYSE_EMPREINTE }} et ${{ env.ANALYSE_VIDEO }}, suspect identifié" >> $GITHUB_OUTPUT
           echo "lieu_arrestation=Lieu d'arrestation : 123 Rue du Crime" >> $GITHUB_OUTPUT
           echo "autorisation_arrestation=true" >> $GITHUB_OUTPUT
           echo "Rapport final généré."
