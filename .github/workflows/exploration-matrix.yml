@@ -1,0 +1,39 @@
+# .github/workflows/exploration-matrix.yml
+name: Exploration Spatiale Optimisée
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  exploration:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mission:
+          - nom: Mars
+            equipements: "Rover, Combinaison spatiale"
+            duree: "7 mois"
+            activite: "Analyse des roches"
+            type: "planete"
+          - nom: Lune
+            equipements: "Module lunaire, Combinaison spatiale"
+            duree: "3 jours"
+            activite: "Collecte d'échantillons"
+            type: "satellite"
+          - nom: Vénus
+            equipements: "Sonde atmosphérique, Instruments scientifiques"
+            duree: "5 mois"
+            activite: "Analyse atmosphérique"
+            type: "planete"
+
+    name: Mission ${{ matrix.mission.nom }}
+    steps:
+      - run: |
+          echo "=== Mission ${{ matrix.mission.nom }} ==="
+          echo "Équipements : ${{ matrix.mission.equipements }}"
+          echo "Durée du voyage : ${{ matrix.mission.duree }}"
+          echo "Activité principale : ${{ matrix.mission.activite }}"
+          echo "Type de destination : ${{ matrix.mission.type }}"
+          echo "=== Fin de la mission ==="
