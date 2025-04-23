@@ -1,0 +1,27 @@
+# .github/workflows/test-matrix.yml
+name: Test Node.js avec Matrice
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-app:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+        database: [local, cloud]
+        exclude:
+          - node: 18
+            database: cloud
+
+    name: Test Node ${{ matrix.node }} / DB ${{ matrix.database }}
+    steps:
+      - name: Afficher la configuration de test
+        run: |
+          echo "=== Test de configuration ==="
+          echo "Version de Node.js : ${{ matrix.node }}"
+          echo "Type de base de données : ${{ matrix.database }}"
+          echo "=== Fin du test ==="
