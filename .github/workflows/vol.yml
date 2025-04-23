@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [policier-scene, policier-video]
     outputs:
-      rapport: ${{ steps.final.outputs.consclusion }}
+      rapport: ${{ steps.final.outputs.conclusion }}
       lieu_arrestation: ${{ steps.final.outputs.lieu_arrestation }}
       autorisation_arrestation: ${{ steps.final.outputs.autorisation_arrestation }}
     steps:
@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: Afficher le rapport
         run: |
-          echo "Conclusion : ${{ needs.detective.outputs.rapport }}"
+          echo "Rapport : ${{ needs.detective.outputs.rapport }}"
           echo "Lieu d'arrestation : ${{ needs.detective.outputs.lieu_arrestation }}"
           echo "Autorisation d'arrestation : ${{ needs.detective.outputs.autorisation_arrestation }}"
 
