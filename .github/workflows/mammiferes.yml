@@ -20,7 +20,7 @@ jobs:
         with:
           filters: |
             mammiferes:
-              - 'zoo/mammiferes/**'
+              - 'mammiferes/**'
 
       - name: Process mammal changes
         if: steps.check_changes.outputs.mammiferes == 'true'
