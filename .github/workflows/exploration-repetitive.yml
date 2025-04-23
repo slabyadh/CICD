@@ -40,26 +40,3 @@ jobs:
           echo "Type de destination : planete"
           echo "=== Fin de la mission ==="
 
-  demandes_president:
-    needs: exploration  # Ce job attend la fin du job "exploration"
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        mission: [Mars, Lune, Vénus]
-        include:
-          - mission: Mars
-            equipement_special: "Space Burger"
-            commentaire: "Pour maintenir le moral de l'équipage"
-          - mission: Lune
-            equipement_special: "Télescope pour observer les aliens"
-            commentaire: "Parce que les aliens existent, c'est sûr !"
-          - mission: Vénus
-            # Pas de valeurs spéciales = test des valeurs par défaut
-
-    name: Demandes Présidentielles - ${{ matrix.mission }}
-    steps:
-      - run: |
-          echo "=== Demandes Présidentielles - Mission ${{ matrix.mission }} ==="
-          echo "Équipement spécial : ${{ matrix.equipement_special || 'Pas besoin' }}"
-          echo "Commentaire : ${{ matrix.commentaire || 'Aucun commentaire' }}"
-          echo "=== Fin ==="
