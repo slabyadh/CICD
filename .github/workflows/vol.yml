@@ -31,7 +31,7 @@ jobs:
     needs: [policier-scene, policier-video]
     outputs:
       rapport: ${{ steps.final.outputs.consclusion }}
-      lieu-arrestation: ${{ steps.final.outputs.lieu_arrestation }}
+      lieu_arrestation: ${{ steps.final.outputs.lieu_arrestation }}
       autorisation_arrestation: ${{ steps.final.outputs.autorisation_arrestation }}
     steps:
       - name: Récupération des indices
@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: Afficher le rapport
         run: |
-          echo "Conclusion : ${{ needs.detective.outputs.conclusion }}"
+          echo "Conclusion : ${{ needs.detective.outputs.rapport }}"
           echo "Lieu d'arrestation : ${{ needs.detective.outputs.lieu_arrestation }}"
           echo "Autorisation d'arrestation : ${{ needs.detective.outputs.autorisation_arrestation }}"
 
