@@ -1,0 +1,27 @@
+name: Soins des mammifères
+
+on: push
+
+jobs:
+  soins-mammiferes:
+    name: Soins des mammifères
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check if changes affect mammals
+        id: check_changes
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            mammiferes:
+              - 'mammiferes/**'
+
+      - name: Process mammal changes
+        if: steps.check_changes.outputs.mammiferes == 'true'
+        run: |
+          echo "Message du commit: ${{ github.event.head_commit.message }}"
+          echo "Type d'événement: ${{ github.event_name }}"
+          echo "Auteur: ${{ github.actor }}"
