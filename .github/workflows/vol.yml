@@ -1,0 +1,77 @@
+name: Enquête SuperPrix
+
+on: push
+
+jobs:
+  policier-scene:
+    name: Policier sur la scène de crime
+    runs-on: ubuntu-latest
+    outputs:
+      empreinte: "Empreinte trouvée sur la caisse"
+    steps:
+      - name: Analyse de la scène de crime
+        run: |
+          echo "Le policier examine la caisse enregistreuse."
+          echo "Empreinte prélevée sur la caisse."
+
+  
+  policier-video:
+    name: Policier vidéosurveillance
+    runs-on: ubuntu-latest
+    outputs:
+      video: ${{ steps.recup-video.outputs.resultat }}
+    steps:
+      - id: recup-video
+        run: echo "resultat=Séquence vidéo récupérée" >> $GITHUB_OUTPUT
+
+
+  detective:
+    name: Détective
+    runs-on: ubuntu-latest
+    needs: [policier-scene, policier-video]
+    outputs:
+      rapport: ${{ steps.final.outputs.consclusion }}
+      lieu-arrestation: ${{ steps.final.outputs.lieu-arrestation }}
+      autorisation_arrestation: ${{ steps.final.outputs.autorisation_arrestation }}
+    steps:
+      - name: Récupération des indices
+        run: |
+          echo "Empreinte : ${{ needs.policier-scene.outputs.empreinte }}"
+          echo "Séquence vidéo : ${{ needs.policier-video.outputs.video }}"
+          echo "Indices récupérés avec succès."
+
+      - name: Analyse des indices
+        run: |
+          echo "ANALYSE_EMPREINTE=Empreinte correspond à un suspect connu" >> $GITHUB_ENV
+          echo "ANALYSE_VIDEO=Séquence vidéo montre le suspect en train de voler" >> $GITHUB_ENV
+          echo "Indices analysés."
+
+      - id: final
+        name: Rapport final
+        run: |
+          echo "conclusion= ${{ env.ANALYSE_EMPREINTE }} et ${ { env.ANALYSE_VIDEO }}, suspect identifié" >> $GITHUB_OUTPUT
+          echo "lieu-arrestation=Lieu d'arrestation : 123 Rue du Crime" >> $GITHUB_OUTPUT
+          echo "autorisation_arrestation=Autorisation d'arrestation obtenue" >> $GITHUB_OUTPUT
+          echo "Rapport final généré."
+  
+
+  policier:
+    name: Equipe d'intervention
+    runs-on: ubuntu-latest
+    needs: detective
+    steps:
+      - name: Afficher le rapport
+        run: |
+          echo "RAPPORT: ${{ needs.detective.outputs.rapport }}"
+          echo "Conclusion : ${{ needs.detective.outputs.rapport }}"
+          echo "Lieu d'arrestation : ${{ needs.detective.outputs.lieu-arrestation }}"
+          echo "Autorisation d'arrestation : ${{ needs.detective.outputs.autorisation_arrestation }}"
+
+      - name: Enquête sans suite
+        if: needs.detective.outputs.autorisation_arrestation != 'true'
+        run: echo "Pas d'autorisation d'arrestation, enquête sans suite."
+
+      - name: Intervention sur place
+        if: needs.detective.outputs.autorisation_arrestation == 'true'
+        run: echo "Arrestation du suspect à ${{ needs.detective.outputs.lieu_arrestation }}"
+
