@@ -51,7 +51,7 @@ jobs:
         run: |
           echo "conclusion= ${{ env.ANALYSE_EMPREINTE }} et ${{ env.ANALYSE_VIDEO }}, suspect identifié" >> $GITHUB_OUTPUT
           echo "lieu-arrestation=Lieu d'arrestation : 123 Rue du Crime" >> $GITHUB_OUTPUT
-          echo "autorisation_arrestation=Autorisation d'arrestation obtenue" >> $GITHUB_OUTPUT
+          echo "autorisation_arrestation=true" >> $GITHUB_OUTPUT
           echo "Rapport final généré."
   
 
