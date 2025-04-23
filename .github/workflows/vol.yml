@@ -43,7 +43,7 @@ jobs:
       - name: Analyse des indices
         run: |
           echo "ANALYSE_EMPREINTE=Empreinte correspond à un suspect connu" >> $GITHUB_ENV
-          echo "ANALYSE_VIDEO=Séquence vidéo montre le suspect en train de voler" >> $GITHUB_ENV
+          echo "ANALYSE_VIDEO=Séquence vidéo montre le suspect en train de voler à 22h35" >> $GITHUB_ENV
           echo "Indices analysés."
 
       - id: final
@@ -73,5 +73,5 @@ jobs:
 
       - name: Intervention sur place
         if: needs.detective.outputs.autorisation_arrestation == 'true'
-        run: echo "Arrestation du suspect à ${{ needs.detective.outputs.lieu_arrestation }}"
+        run: echo "Arrestation du suspect à ${{ needs.detective.outputs.lieu-arrestation }}"
 
