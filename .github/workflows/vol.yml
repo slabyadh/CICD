@@ -14,7 +14,7 @@ jobs:
           echo "Le policier examine la caisse enregistreuse."
           echo "Empreinte prélevée sur la caisse."
 
-  
+
   policier-video:
     name: Policier vidéosurveillance
     runs-on: ubuntu-latest
@@ -49,7 +49,7 @@ jobs:
       - id: final
         name: Rapport final
         run: |
-          echo "conclusion= ${{ env.ANALYSE_EMPREINTE }} et ${ { env.ANALYSE_VIDEO }}, suspect identifié" >> $GITHUB_OUTPUT
+          echo "conclusion= ${{ env.ANALYSE_EMPREINTE }} et ${{ env.ANALYSE_VIDEO }}, suspect identifié" >> $GITHUB_OUTPUT
           echo "lieu-arrestation=Lieu d'arrestation : 123 Rue du Crime" >> $GITHUB_OUTPUT
           echo "autorisation_arrestation=Autorisation d'arrestation obtenue" >> $GITHUB_OUTPUT
           echo "Rapport final généré."
