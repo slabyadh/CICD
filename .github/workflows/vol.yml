@@ -50,7 +50,7 @@ jobs:
         name: Rapport final
         run: |
           echo "conclusion= ${{ env.ANALYSE_EMPREINTE }} et ${{ env.ANALYSE_VIDEO }}, suspect identifié" >> $GITHUB_OUTPUT
-          echo "lieu-arrestation=Lieu d'arrestation : 123 Rue du Crime" >> $GITHUB_OUTPUT
+          echo "lieu_arrestation=Lieu d'arrestation : 123 Rue du Crime" >> $GITHUB_OUTPUT
           echo "autorisation_arrestation=true" >> $GITHUB_OUTPUT
           echo "Rapport final généré."
   
@@ -62,9 +62,8 @@ jobs:
     steps:
       - name: Afficher le rapport
         run: |
-          echo "RAPPORT: ${{ needs.detective.outputs.rapport }}"
-          echo "Conclusion : ${{ needs.detective.outputs.rapport }}"
-          echo "Lieu d'arrestation : ${{ needs.detective.outputs.lieu-arrestation }}"
+          echo "Conclusion : ${{ needs.detective.outputs.conclusion }}"
+          echo "Lieu d'arrestation : ${{ needs.detective.outputs.lieu_arrestation }}"
           echo "Autorisation d'arrestation : ${{ needs.detective.outputs.autorisation_arrestation }}"
 
       - name: Enquête sans suite
@@ -73,5 +72,5 @@ jobs:
 
       - name: Intervention sur place
         if: needs.detective.outputs.autorisation_arrestation == 'true'
-        run: echo "Arrestation du suspect à ${{ needs.detective.outputs.lieu-arrestation }}"
+        run: echo "Arrestation du suspect à ${{ needs.detective.outputs.lieu_arrestation }}"
 
