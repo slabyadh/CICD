@@ -8,7 +8,7 @@ on:
       - 'zoo/oiseaux/**'
 
 jobs:
-  surveillance:
+  surveillance-oiseaux:
     runs-on: ubuntu-latest
     steps:
       - name: Afficher les informations de la PR
