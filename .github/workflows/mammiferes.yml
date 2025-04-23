@@ -9,7 +9,7 @@ on:
       - 'zoo/mammiferes/**'
 
 jobs:
-  soins:
+  soins-mammiferes:
     runs-on: ubuntu-latest
     steps:
       - name: Afficher les informations du commit
