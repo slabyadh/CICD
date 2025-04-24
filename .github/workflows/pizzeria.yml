@@ -1,0 +1,76 @@
+name: PizzaCI Express Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      nom_client:
+        description: "Nom du client"
+        required: true
+      pizzas:
+        description: |
+          Liste des pizzas au format JSON. Attention aux points importants:
+          - Utilisez des guillemets doubles
+          - Entourez la liste avec []
+          Exemple: ["margherita","reine","calzone"]
+        required: true
+
+jobs:
+  reception-commande:
+    runs-on: ubuntu-latest
+    outputs:
+      pizzas: ${{ steps.get-pizzas.outputs.pizzas }}
+      nom_client: ${{ steps.get-nom.outputs.nom_client }}
+    steps:
+      - name: Affichage nom client
+        id: get-nom
+        run: echo "nom_client=${{ github.event.inputs.nom_client }}" >> $GITHUB_OUTPUT
+      
+      - name: Récupération et affichage des pizzas
+        id: get-pizzas
+        run: |
+          echo "Commande reçue de ${{ github.event.inputs.nom_client }}"
+          echo "Liste des pizzas: ${{ github.event.inputs.pizzas }}"
+          echo "pizzas=${{ github.event.inputs.pizzas }}" >> $GITHUB_OUTPUT
+
+  cuisine:
+    runs-on: ubuntu-latest
+    needs: reception-commande
+    strategy:
+      matrix:
+        include: 
+          - pizza: dessert
+            taille: L
+        pizza: ${{ fromJSON(needs.reception-commande.outputs.pizzas) }}
+        taille: [L, XL]
+    steps:
+      - name: Préparation de la pizza
+        run: echo "Préparation en cours : Pizza ${{ matrix.pizza }} taille ${{ matrix.taille }}"
+
+  livraison:
+    runs-on: ubuntu-latest
+    needs: cuisine
+    concurrency:
+      group: livraison-unique
+      cancel-in-progress: true
+    steps:
+      - name: Préparation livraison
+        run: echo "Préparation de la livraison pour ${{ needs.reception-commande.outputs.nom_client }}"
+      
+      - name: Liste des pizzas
+        run: echo "Les pizzas à livrer sont : ${{ needs.reception-commande.outputs.pizzas }}"
+
+  reclamation:
+    runs-on: ubuntu-latest
+    needs: livraison
+    permissions:
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Créer une issue de test (réclamation)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create --title "Réclamation potentielle - ${{ needs.reception-commande.outputs.nom_client }}" \
+                          --body "Commande pour ${{ needs.reception-commande.outputs.nom_client }} livrée. Merci de vérifier si tout est conforme."
